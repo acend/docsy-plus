@@ -68,11 +68,13 @@ enabledModule = "base extra"
 Use the shortcode as follows:
 
 ```html
-{{< onlyWhen extra >}}
+{{% onlyWhen extra %}}
 This is only displayed if extra is enabled.
-{{< /onlyWhen >}}
+{{% /onlyWhen %}}
 
-{{< onlyWhenNot extra >}}
+{{% onlyWhenNot extra %}}
 This only shown if extra is NOT enabled.
-{{< /onlyWhenNot >}}
+{{% /onlyWhenNot %}}
 ```
+
+Use `{{< onlyWhen extra >}}` in plain HTML files 
