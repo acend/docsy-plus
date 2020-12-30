@@ -57,7 +57,7 @@ Lab 1 solution
 
 ## OnlyWhen and OnlyWhenNot
 
-This shortcode is used to display or hide content based on enables modules.
+This shortcode is used to display or hide content based on enabled modules.
 
 Example modules configuration within your sites config.toml:
 
