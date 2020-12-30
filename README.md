@@ -31,20 +31,20 @@ For docsy shortcodes see here: [Docsy Shortcodes](https://www.docsy.dev/docs/add
 
 The blocks/cover shortcode from [docsy](https://www.docsy.dev/docs/adding-content/iconsimages/#add-images) has been enhanced in order to support config-dependend background an logo images.
 
-If you add a imagePrefix settings under your sties params, this prefix is used to search for background and log images.
+If you add an imagePrefix setting under your site params, this prefix is used to search for background and logo images.
 
-As example with the following setting:
+As example with the following setting...
 
 ```toml
 [params]
 imagePrefix = "fancy_"
 ```
-Backgound images which contain "fancy_background" and logo images with "fancy_logo" in the filename are detected.
+... background images which contain "fancy_background" and logo images with "fancy_logo" in the filename are detected.
 
 
 ## Details
 
-A shortcode to generate HTML _details_ and _summary_ tags, which is handy to make solutions foldable in the labs sections.
+A shortcode to generate HTML _details_ and _summary_ tags, which is handy to make solutions-sections foldable.
 
 Usage:
 
@@ -59,7 +59,7 @@ Lab 1 solution
 
 This shortcode is used to display or hide content based on enabled modules.
 
-Example modules configuration within your sites config.toml:
+Example module configuration within your sites config.toml:
 
 ```toml
 enabledModule = "base extra"
