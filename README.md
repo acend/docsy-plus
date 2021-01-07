@@ -3,7 +3,6 @@
 Additions for the [docsy theme](https://github.com/google/docsy) for [Hugo](https://gohugo.io/), used for training content.
 The docsy-plus theme inherites from the docsy theme through Hugos [Theme Components](https://gohugo.io/hugo-modules/theme-components/).
 
-
 ## Installation
 
 To add the docsy and docsy-plus themes to an existing Hugo project, run the following commands from your project’s root directory:
@@ -22,7 +21,6 @@ Example config.toml:
 theme = ["docsy-plus", "docsy"]
 ```
 
-
 ## Shortcodes
 
 For docsy shortcodes see here: [Docsy Shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/).
@@ -39,8 +37,8 @@ As example with the following setting...
 [params]
 imagePrefix = "fancy_"
 ```
-... background images which contain "fancy_background" and logo images with "fancy_logo" in the filename are detected.
 
+... background images which contain "fancy_background" and logo images with "fancy_logo" in the filename are detected.
 
 ## Details
 
@@ -53,7 +51,6 @@ Usage:
 Lab 1 solution
 {{% /details %}}
 ```
-
 
 ## OnlyWhen and OnlyWhenNot
 
@@ -77,4 +74,4 @@ This only shown if extra is NOT enabled.
 {{% /onlyWhenNot %}}
 ```
 
-Use `{{< onlyWhen extra >}}` in plain HTML files 
+Use `{{< onlyWhen extra >}}` in plain HTML files
