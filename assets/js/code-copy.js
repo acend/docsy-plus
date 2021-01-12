@@ -13,7 +13,9 @@
   }
 
   function selectText(node) {
-    node = node.getElementsByTagName("td")[node.getElementsByTagName("td").length - 1]
+    if( node.getElementsByTagName("table").length > 0 ) {
+      node = node.getElementsByTagName("td")[node.getElementsByTagName("td").length - 1]
+    }
     var selection = window.getSelection();
     var range = document.createRange();
     range.selectNodeContents(node);
