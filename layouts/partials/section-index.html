@@ -1,7 +1,6 @@
 {{/* Copied and adapted from themes/docsy/layouts/partials/section-index.html */}}
 <div class="section-index">
     {{ $pages := (where .Site.Pages "Section" .Section).ByWeight }}
-    {{ $pages = (where $pages "Type" "!=" "search") }}
     {{ $parent := .Page }}
     {{ if $parent.Params.no_list }}
     {{/* If no_list is true we don't show a list of subpages */}}
@@ -9,8 +8,11 @@
     {{/* If simple_list is true we show a bulleted list of subpages */}}
         <ul>
             {{ range $pages }}
+                {{ $onlyWhen := default "base" .Params.onlyWhen }}
+                {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
                 {{ if eq .Parent $parent }}
                     <li><a href="{{ .RelPermalink }}">{{- .Title -}}</a></li>
+                {{ end }}
                 {{ end }}
             {{ end }}
         </ul>
@@ -18,6 +20,8 @@
     {{/* Otherwise we show a nice formatted list of subpages with page descriptions */}}
     <hr class="panel-line">
         {{ range $pages }}
+            {{ $onlyWhen := default "base" .Params.onlyWhen }}
+            {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
             {{ if eq .Parent $parent }}
                 <div class="entry">
                     <h5>
@@ -25,6 +29,7 @@
                     </h5>
                     <p>{{ .Description | markdownify }}</p>
                 </div>
+            {{ end }}
             {{ end }}
         {{ end }}
     {{ end }}
