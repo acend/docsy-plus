@@ -1,2 +1,6 @@
 {{ $codeCopy := resources.Get "css/code-copy.css" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $codeCopy.RelPermalink }}">
+{{ with .Site.Params.ReplaceLabHost }}
+{{ $replace := resources.Get "js/replace-labhost.js" | minify | fingerprint }}
+<script src="{{ $replace.RelPermalink }}" integrity="{{ $replace.Data.Integrity }}" crossorigin="anonymous"></script>
+{{ end }}
