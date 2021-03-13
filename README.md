@@ -83,8 +83,8 @@ Use `{{< onlyWhen extra >}}` in plain HTML files
 
 ## Dynamicaly replace lab-host
 
-This Features is used to replace instances of `//localhost` on html pages with a value taken from an URL param. The feature is handy to individualize the labs content with references to your personal lab environment.
-
+The Features is used to replace instances of `//localhost` on html pages with a value taken from an URL param.
+This let's individualize content with references to your personal lab environment (IP or hostname).
 
 ### Enable the feature
 
