@@ -2,6 +2,7 @@
 {{ $jsCodeCopy := resources.Get "js/code-copy.js" }}
 {{ if .Site.Params.ReplaceLabContent }}
 {{ $jsReplaceContent := resources.Get "js/replace-content.js" }}
+{{ $jsReplaceContent = $jsReplaceContent | resources.ExecuteAsTemplate "replace-content.js" . }}
 {{ $jsSite = (slice $jsCodeCopy $jsReplaceContent) | resources.Concat "js/site.js" }}
 {{ else }}
 {{ $jsSite = $jsCodeCopy | js.Build "js/site.js" }}
