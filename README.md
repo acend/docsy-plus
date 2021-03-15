@@ -3,6 +3,7 @@
 Additions for the [docsy theme](https://github.com/google/docsy) for [Hugo](https://gohugo.io/), used for training content.
 The docsy-plus theme inherites from the docsy theme through Hugos [Theme Components](https://gohugo.io/hugo-modules/theme-components/).
 
+
 ## Installation
 
 To add the docsy and docsy-plus themes to an existing Hugo project, run the following commands from your project’s root directory:
@@ -21,9 +22,11 @@ Example config.toml:
 theme = ["docsy-plus", "docsy"]
 ```
 
-## Shortcodes
+
+## Shortcodes and Additional Features
 
 For docsy shortcodes see here: [Docsy Shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/).
+
 
 ## Enhanced Cover Block
 
@@ -39,6 +42,7 @@ imagePrefix = "fancy_"
 ```
 
 ... background images which contain "fancy_background" and logo images with "fancy_logo" in the filename are detected.
+
 
 ## Details
 
@@ -75,3 +79,32 @@ This only shown if extra is NOT enabled.
 ```
 
 Use `{{< onlyWhen extra >}}` in plain HTML files
+
+
+## Dynamicaly replace content
+
+The features is used to dynamicaly replace content on html pages with a value taken from an URL param.
+This makes it possible to individualize content with references to your personal lab environment.
+
+Curently all occurences of the string `LOCALHOST` will be replaced with the given value.
+
+### Enable the feature
+
+In order to activate this feature add the folling setting within your hugo site configurations:
+
+```toml
+[params]
+replaceLabContent = true
+```
+
+
+### Setting a value
+
+Add a individual value for your lab-host using the URL param `h`, as example [http://localhost:1313/?h=myhost](http://localhost:1313/?h=myhost).
+
+For the following page loads the setting will be persistet using a localStorage of your browser.
+
+
+### Reset
+
+When specifying `_` as value for `h`, the localStorage setting will be removed: [http://localhost:1313/?h=_](http://localhost:1313/?h=_).
