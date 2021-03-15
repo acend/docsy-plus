@@ -26,11 +26,11 @@ function replaceInText(element, pattern, replacement) {
   }
 }
 
-var labHost = getUrlParameter('h');
-var labHost = (labHost === undefined) ? localStorage.getItem('labHost') : labHost;
-if (labHost == '' || labHost == '_') {
-  localStorage.removeItem('labHost');
-} else if (typeof labHost !== undefined && labHost !== null ) {
-  localStorage.setItem('labHost', labHost);
-  replaceInText(document.body, "://localhost", "://" + labHost );
+var replaceContent = getUrlParameter('h');
+var replaceContent = (replaceContent === undefined) ? localStorage.getItem('replaceContent') : replaceContent;
+if (replaceContent == '' || replaceContent == '_') {
+  localStorage.removeItem('replaceContent');
+} else if (typeof replaceContent !== undefined && replaceContent !== null ) {
+  localStorage.setItem('replaceContent', replaceContent);
+  replaceInText(document.body, "LOCALHOST", replaceContent);
 }
