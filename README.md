@@ -86,25 +86,25 @@ Use `{{< onlyWhen extra >}}` in plain HTML files
 The features is used to dynamicaly replace content on html pages with a value taken from an URL param.
 This makes it possible to individualize content with references to your personal lab environment.
 
-Curently all occurences of the configured string (see below) will be replaced with the given value.
+Curently all occurences of the configured string (see below) will be replaced with a given value.
 
 ### Enable the feature
 
-In order to activate this feature add the folling setting within your hugo site configurations:
+In order to activate this feature, add the following setting in your hugo site configuration:
 
 ```toml
 [params]
-replaceLabContent = "string to replace" // could be LOCALHOST as example
+replaceLabContent = "string to replace" // i.e. LOCALHOST
 ```
 
 
 ### Setting a value
 
-Add a individual value for your lab-host using the URL param `h`, as example [http://localhost:1313/?h=myhost](http://localhost:1313/?h=myhost).
+Add an individual value for your lab-host using the URL param `h`, as example: [http://localhost:1313/?h=myhost](http://localhost:1313/?h=myhost)
 
-For the following page loads the setting will be persistet using a localStorage of your browser.
+For the following page loads the setting will be persistet using localStorage of your browser.
 
 
 ### Reset
 
-When specifying `_` as value for `h`, the localStorage setting will be removed: [http://localhost:1313/?h=_](http://localhost:1313/?h=_).
+When specifying `_` as value for `h`, the localStorage setting will be removed: [http://localhost:1313/?h=_](http://localhost:1313/?h=_)
