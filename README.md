@@ -86,7 +86,7 @@ Use `{{< onlyWhen extra >}}` in plain HTML files
 The features is used to dynamicaly replace content on html pages with a value taken from an URL param.
 This makes it possible to individualize content with references to your personal lab environment.
 
-Curently all occurences of the string `LOCALHOST` will be replaced with the given value.
+Curently all occurences of the configured string (see below) will be replaced with the given value.
 
 ### Enable the feature
 
@@ -94,7 +94,7 @@ In order to activate this feature add the folling setting within your hugo site 
 
 ```toml
 [params]
-replaceLabContent = true
+replaceLabContent = "string to replace" // could be LOCALHOST as example
 ```
 
 
