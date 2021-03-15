@@ -24,6 +24,10 @@ function replaceInText(element, pattern, replacement) {
         replaceInText(node, pattern, replacement);
     }
   }
+  // replace href
+  if(element.hasAttribute("href")){
+    element.setAttribute("href", element.getAttribute("href").replace(pattern, replacement));
+  }
 }
 
 var replaceContent = getUrlParameter('h');
@@ -32,5 +36,7 @@ if (replaceContent == '' || replaceContent == '_') {
   localStorage.removeItem('replaceContent');
 } else if (typeof replaceContent !== undefined && replaceContent !== null ) {
   localStorage.setItem('replaceContent', replaceContent);
-  replaceInText(document.body, "LOCALHOST", replaceContent);
+  replaceInText(document.body, "{{ .Site.Params.ReplaceLabContent }}", replaceContent);
+} else{
+  replaceInText(document.body, "{{ .Site.Params.ReplaceLabContent }}", "localhost" );
 }
