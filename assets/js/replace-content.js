@@ -34,6 +34,7 @@ var replaceContent = getUrlParameter('h');
 var replaceContent = (replaceContent === undefined) ? localStorage.getItem('replaceContent') : replaceContent;
 if (replaceContent == '' || replaceContent == '_') {
   localStorage.removeItem('replaceContent');
+  replaceInText(document.body, "{{ .Site.Params.ReplaceLabContent }}", "localhost" );
 } else if (typeof replaceContent !== undefined && replaceContent !== null ) {
   localStorage.setItem('replaceContent', replaceContent);
   replaceInText(document.body, "{{ .Site.Params.ReplaceLabContent }}", replaceContent);
