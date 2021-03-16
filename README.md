@@ -3,7 +3,6 @@
 Additions for the [docsy theme](https://github.com/google/docsy) for [Hugo](https://gohugo.io/), used for training content.
 The docsy-plus theme inherites from the docsy theme through Hugos [Theme Components](https://gohugo.io/hugo-modules/theme-components/).
 
-
 ## Installation
 
 To add the docsy and docsy-plus themes to an existing Hugo project, run the following commands from your project’s root directory:
@@ -22,11 +21,9 @@ Example config.toml:
 theme = ["docsy-plus", "docsy"]
 ```
 
-
 ## Shortcodes and Additional Features
 
 For docsy shortcodes see here: [Docsy Shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/).
-
 
 ## Enhanced Cover Block
 
@@ -42,7 +39,6 @@ imagePrefix = "fancy_"
 ```
 
 ... background images which contain "fancy_background" and logo images with "fancy_logo" in the filename are detected.
-
 
 ## Details
 
@@ -80,11 +76,10 @@ This only shown if extra is NOT enabled.
 
 Use `{{< onlyWhen extra >}}` in plain HTML files
 
-
 ## Dynamicaly replace content
 
 The features is used to dynamicaly replace content on html pages with a value taken from an URL param.
-This makes it possible to individualize content with references to your personal lab environment.
+This makes it possible to adapt content with references to each users individual lab environment.
 
 Curently all occurences of the configured string (see below) will be replaced with a given value.
 
@@ -97,13 +92,11 @@ In order to activate this feature, add the following setting in your hugo site c
 replaceLabContent = "string to replace" // i.e. LOCALHOST
 ```
 
-
 ### Setting a value
 
-Add an individual value for your lab-host using the URL param `h`, as example: [http://localhost:1313/?h=myhost](http://localhost:1313/?h=myhost)
+Set a specific value using the URL param `h`, as example: [http://localhost:1313/?h=myhost](http://localhost:1313/?h=myhost)
 
-For the following page loads the setting will be persistet using localStorage of your browser.
-
+For the following page loads the setting will be persisted using localStorage of your browser.
 
 ### Reset
 
