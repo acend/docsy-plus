@@ -94,7 +94,7 @@ In order to activate this feature, add the following setting in your hugo site c
 
 ```toml
 [params]
-replaceLabContent = "string to replace" // i.e. LOCALHOST
+replaceLabContent = "string to replace" # i.e. LOCALHOST
 ```
 
 
