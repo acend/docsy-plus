@@ -74,4 +74,24 @@ This only shown if extra is NOT enabled.
 {{% /onlyWhenNot %}}
 ```
 
-Use `{{< onlyWhen extra >}}` in plain HTML files
+Use `{{< onlyWhen extra >}}` in plain HTML files.
+
+It is also possible to use multiple paramaters. See the use cases below for a better understanding.
+
+
+### Use cases
+
+* `{{% onlyWhen variant1 %}}`: This is only rendered when `enabledModule` in `config.toml` contains `variant1`
+* `{{% onlyWhen variant1 variant2 %}}`: This is only rendered when `enabledModule` in `config.toml` contains `variant1` **or** `variant2`
+* `{{% onlyWhenNot variant1 %}}`: This is only rendered when `enabledModule` in `config.toml` **does not** contain `variant1`
+* `{{% onlyWhenNot variant1 variant2 %}}`: This is only rendered when `enabledModule` in `config.toml` **does not** contain `variant1` **or** `variant2`
+
+In order to only render text if **all** of multiple conditions do not apply simply chain several `onlyWhenNot` shortcodes:
+
+```
+{{% onlyWhenNot variant1 %}}
+{{% onlyWhenNot variant2 %}}
+This is only rendered when `enabledModule` in `config.toml` **does not** contain `variant1` **nor** `variant2`.
+{{% /onlyWhen %}}
+{{% /onlyWhen %}}
+```
