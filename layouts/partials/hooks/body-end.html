@@ -1,11 +1,13 @@
 {{ $jsSite := "" }}
 {{ $jsCodeCopy := resources.Get "js/code-copy.js" }}
+{{ $jsModeSwitcher := resources.Get "js/mode-switcher.js" }}
+{{ $jsModeSwitcher = $jsModeSwitcher | resources.ExecuteAsTemplate "mode-switcher.js" . }}
 {{ if .Site.Params.ReplaceLabContent }}
 {{ $jsReplaceContent := resources.Get "js/replace-content.js" }}
 {{ $jsReplaceContent = $jsReplaceContent | resources.ExecuteAsTemplate "replace-content.js" . }}
-{{ $jsSite = (slice $jsCodeCopy $jsReplaceContent) | resources.Concat "js/site.js" }}
+{{ $jsSite = (slice $jsCodeCopy $jsReplaceContent $jsModeSwitcher) | resources.Concat "js/site.js" }}
 {{ else }}
-{{ $jsSite = $jsCodeCopy | js.Build "js/site.js" }}
+{{ $jsSite = (slice $jsCodeCopy $jsModeSwitcher) | resources.Concat "js/site.js" }}
 {{ end }}
 {{ if .Site.IsServer }}
 <script src="{{ $jsSite.RelPermalink }}"></script>

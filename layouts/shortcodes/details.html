@@ -1,4 +1,4 @@
-<details>
+<details {{with .Get "mode-switcher" }}data-mode="{{.}}"{{end}}>
   <summary>{{with .Get "title" }}{{.}}{{else}}Click to expand{{end}}</summary>
   {{.Inner}}
 </details>
