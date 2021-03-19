@@ -74,14 +74,36 @@ This only shown if extra is NOT enabled.
 {{% /onlyWhenNot %}}
 ```
 
-Use `{{< onlyWhen extra >}}` in plain HTML files
+Use `{{< onlyWhen extra >}}` in plain HTML files.
 
-## Dynamicaly replace content
+It is also possible to use multiple paramaters. See the use cases below for a better understanding.
 
-The features is used to dynamicaly replace content on html pages with a value taken from an URL param.
+
+### Use cases
+
+* `{{% onlyWhen variant1 %}}`: This is only rendered when `enabledModule` in `config.toml` contains `variant1`
+* `{{% onlyWhen variant1 variant2 %}}`: This is only rendered when `enabledModule` in `config.toml` contains `variant1` **or** `variant2`
+* `{{% onlyWhenNot variant1 %}}`: This is only rendered when `enabledModule` in `config.toml` **does not** contain `variant1`
+* `{{% onlyWhenNot variant1 variant2 %}}`: This is only rendered when `enabledModule` in `config.toml` **does not** contain `variant1` **or** `variant2`
+
+In order to only render text if **all** of multiple conditions do not apply simply chain several `onlyWhenNot` shortcodes:
+
+```
+{{% onlyWhenNot variant1 %}}
+{{% onlyWhenNot variant2 %}}
+This is only rendered when `enabledModule` in `config.toml` **does not** contain `variant1` **nor** `variant2`.
+{{% /onlyWhen %}}
+{{% /onlyWhen %}}
+```
+
+
+## Dynamically replace content
+
+The features is used to dynamically replace content on html pages with a value taken from an URL param.
 This makes it possible to adapt content with references to each users individual lab environment.
 
 Curently all occurences of the configured string (see below) will be replaced with a given value.
+
 
 ### Enable the feature
 
