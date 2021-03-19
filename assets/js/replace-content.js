@@ -31,18 +31,19 @@ function replaceInText(element, pattern, replacement) {
 }
 
 var replaceWith = (getUrlParameter('h') === undefined) ? localStorage.getItem('replaceWith') : getUrlParameter('h')
-var replacePattern = "{{ .Site.Params.ReplaceLabContent }}"; 
+var replacePattern = "{{ .Site.Params.ReplaceLabContent }}";
+var replaceWithDefault = "{{ .Site.Params.ReplaceLabContentDefault }}";
 switch (replaceWith) {
   // reset localStorage and assign default value
   case '':
   case '_':
     localStorage.removeItem('replaceWith');
-    replaceWith = replacePattern.toLowerCase();
+    replaceWith = replaceWithDefault;
     break;
   // no valid data, assign default value
   case undefined:
   case null:
-    replaceWith = replacePattern.toLowerCase();
+    replaceWith = replaceWithDefault;
     break;
   // default: make sure the value is persited
   default:
