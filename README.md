@@ -112,6 +112,7 @@ In order to activate this feature, add the following setting in your hugo site c
 ```toml
 [params]
 replaceLabContent = "string to replace" # i.e. LOCALHOST
+replaceLabContentDefault = "default value" # i.e http://localhost
 ```
 
 ### Setting a value
