@@ -134,7 +134,7 @@ In order to activate this feature, add the following setting in your hugo site c
 
 ```toml
 [params]
-ModeSwitcher = "true"
+modeSwitcher = "true"
 ```
 
 ### how to use
