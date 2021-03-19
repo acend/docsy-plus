@@ -123,3 +123,26 @@ For the following page loads the setting will be persisted using localStorage of
 ### Reset
 
 When specifying `_` as value for `h`, the localStorage setting will be removed: [http://localhost:1313/?h=_](http://localhost:1313/?h=_)
+
+## Switch between normal and expert mode
+
+This feature adds a switch to the navigation bar, where the users can switch between expert and normal mode. Default ist normal mode.
+
+### Enable feature
+
+In order to activate this feature, add the following setting in your hugo site configuration:
+
+```toml
+[params]
+ModeSwitcher = "true"
+```
+
+### how to use
+
+The Mode Switcher will automatically open detail elements, with `mode-switcher="enabled"` if it's on normal mode. the elements are closed in expert mode
+
+```markdown
+{{% details title="Task 2" mode-switcher="normalexpertmode" %}}
+some content
+{{% /details %}}
+```
