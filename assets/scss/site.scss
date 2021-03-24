@@ -28,10 +28,9 @@
 
 /* details elements */
 details {
-    border: 1px solid $gray-600;
+    border: 1px solid $gray-200;
     border-radius: 4px;
     padding: .5em .5em 0;
-    margin: 0.5em;
 }
 summary {
     font-size: 1.1rem;
@@ -39,6 +38,17 @@ summary {
     font-weight: 500;
     margin: -.5em -.5em 0;
     padding: 0.5em;
+}
+
+details[open].normalmode{
+  border: 0px solid $gray-200;
+  border-radius: 0px;
+  padding: 0em;
+  margin: 0em;
+}
+
+details[open].normalmode > summary{
+ display: none;
 }
 
 /* mode switcher */

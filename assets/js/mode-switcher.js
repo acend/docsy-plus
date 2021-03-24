@@ -46,8 +46,10 @@ window.addEventListener("load", () => {
       if (details.dataset.mode === "normalexpertmode") {
         if (mode === TRAINING_MODE_EXPERT) {
           details.removeAttribute("open");
+          details.classList.remove("normalmode");
         } else {
           details.setAttribute("open", "true");
+          details.classList.add("normalmode");
         }
       }
     });
