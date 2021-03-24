@@ -2,7 +2,7 @@
 {{ $jsCodeCopy := resources.Get "js/code-copy.js" }}
 {{ $jsModeSwitcher := resources.Get "js/mode-switcher.js" }}
 {{ $jsModeSwitcher = $jsModeSwitcher | resources.ExecuteAsTemplate "mode-switcher.js" . }}
-{{ if .Site.Params.ReplaceLabContent }}
+{{ if .Site.Params.ReplaceContent.Placeholders }}
 {{ $jsReplaceContent := resources.Get "js/replace-content.js" }}
 {{ $jsReplaceContent = $jsReplaceContent | resources.ExecuteAsTemplate "replace-content.js" . }}
 {{ $jsSite = (slice $jsCodeCopy $jsReplaceContent $jsModeSwitcher) | resources.Concat "js/site.js" }}
