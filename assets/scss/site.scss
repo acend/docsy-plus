@@ -42,6 +42,9 @@ summary {
 }
 
 /* mode switcher */
+.mode-switch-item label {
+  color: rgba(255, 255, 255, 0.5);
+}
 .switch {
     position: relative;
     display: inline-block;
