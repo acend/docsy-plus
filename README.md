@@ -102,18 +102,31 @@ This is only rendered when `enabledModule` in `config.toml` **does not** contain
 The features is used to dynamically replace content on html pages with a value taken from an URL param.
 This makes it possible to adapt content with references to each users individual lab environment.
 
-Curently all occurences of the configured string (see below) will be replaced with a given value.
+All occurences of the configured strings (see below) will be replaced with a given value.
 
 
 ### Enable the feature
 
-In order to activate this feature, add the following setting in your hugo site configuration:
+In order to activate this feature, add the following settings in your hugo site configuration:
 
 ```toml
-[params]
-replaceLabContent = "string to replace" # i.e. LOCALHOST
-replaceLabContentDefault = "default value" # i.e http://localhost
+[params.replaceContent]
+allowedHrefHosts = ['localhost', 'puzzle.ch', 'acend.ch']
+
+[[params.replaceContent.placeholders]]
+placeholder = "http://LOCALHOST"
+queryParam = "h"
+defaultValue = "http://localhost"
+href = true
+
+[[params.replaceContent.placeholders]]
+placeholder = "<namespace>"
+queryParam = "n"
+defaultValue = "<namespace>"
 ```
+
+It's possible to configure multiple Replacements. To replace the `href` attribute in a `a` Element you'll have to configure the allowedHrefHosts (Xss Protection) and enable the feature with `href=true` for this replacement.
+
 
 ### Setting a value
 
