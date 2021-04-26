@@ -6,12 +6,14 @@ window.addEventListener("load", () => {
   const config = {{ .Site.Params.ReplaceContent.Placeholders | jsonify }};
   const allowedHosts =
     {{ .Site.Params.ReplaceContent.AllowedHrefHosts | jsonify }};
-  const allowedHostsRegex =
+  // In href's replace either strict URLs with allowed hosts or
+  // alphanumeric characters only (to avoid XSS)
+  const validHrefReplacementRegex =
     allowedHosts &&
     new RegExp(
       `^https?://([-a-z0-9]+\\.)*(${allowedHosts
         .map((h) => h.replace(".", "\\."))
-        .join("|")})(:[0-9]+)?$`
+        .join("|")})(:[0-9]+)?$|^[A-Za-z0-9]+$`
     );
   const storedPlaceholders = readPlaceholders();
 
@@ -47,7 +49,7 @@ window.addEventListener("load", () => {
    */
   function isValidReplacementValue(value, href) {
     if (href) {
-      const valid = allowedHostsRegex && allowedHostsRegex.test(value);
+      const valid = validHrefReplacementRegex && validHrefReplacementRegex.test(value);
       if (!valid) {
         console.warn("Invalid href replacement value:", value);
       }
