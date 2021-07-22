@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Lang }}" class="no-js">
+  <head>
+    {{ partial "head.html" . }}
+  </head>
+  <body class="td-{{ .Kind }}">
+    {{ range .Site.Sections }}
+    {{if or (eq .Type "docs")}}
+    <h1 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
+    {{ .Content }}
+    {{ range .Pages }}
+        <h2 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h2>
+        {{ .Content }}
+    {{ end }}
+    {{ end }}
+    {{ end }}
+    {{ partial "scripts.html" . }}
+  </body>
+</html>
