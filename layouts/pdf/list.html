@@ -1,19 +1,25 @@
-<!doctype html>
-<html lang="{{ .Site.Language.Lang }}" class="no-js">
-  <head>
-    {{ partial "head.html" . }}
-  </head>
-  <body class="td-{{ .Kind }}">
+{{ define "main" }}
     {{ range .Site.Sections }}
-    {{if or (eq .Type "docs")}}
-    <h1 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
-    {{ .Content }}
-    {{ range .Pages }}
-        <h2 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h2>
+        {{if or (eq .Type "docs")}}
+        <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
         {{ .Content }}
+            {{ range .Pages }}
+                {{ $onlyWhen := default "base" .Params.onlyWhen }}
+                {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
+                <h2 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }} pages</h2>
+                {{ .Content }}
+                <div class="pdf-break-after"></div>
+                {{ end }}
+            {{ end }}
+            {{ end }}
+        {{ end }}
     {{ end }}
-    {{ end }}
-    {{ end }}
-    {{ partial "scripts.html" . }}
-  </body>
-</html>
+    {{ define "footer" }}
+{{ end }}
+{{ define "pdftitle" }}
+<div class="pdf-title">
+    <p>{{ .Site.Params.pdf.title }}</p>
+</div>
+<div class="pdf-break-after"></div>
+{{ end }}
+

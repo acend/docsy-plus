@@ -102,3 +102,48 @@ details[open].normalmode > summary{
     transform: translateX(26px);
   }
 
+
+
+  /* pdf styling */
+  
+  .pdf-title p{
+    text-align: center;
+    font-size: xx-large;
+  }
+
+  .pdf-header {
+    margin-top: 10px;
+  }
+
+  .pdf-header p{
+    text-align: center;
+    font-size: medium;
+  }
+
+  .pdf-footer {
+    margin-top: 10px;
+  }
+
+  .pdf-footer p{
+    border-top: 1px solid #074761;
+    text-align: right;
+    font-size: smaller;
+  }
+  
+  .pdf-keep-together {
+    page-break-inside: avoid;
+    display:block;
+    clear:both;
+  }
+
+  .pdf-break-before {
+    page-break-before: always;
+    display:block;
+    clear:both;
+  }
+
+  .pdf-break-after {
+    page-break-after: always;
+    display:block;
+    clear:both;
+  }
