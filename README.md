@@ -9,7 +9,7 @@ To add the docsy and docsy-plus themes to an existing Hugo project, run the foll
 
 ```sh
 git submodule add https://github.com/google/docsy.git themes/docsy
-git submodule add https://github.com/puzzle/docsy-plus.git themes/docsy-plus
+git submodule add https://github.com/acend/docsy-plus.git themes/docsy-plus
 git submodule update --init --recursive
 ```
 
