@@ -1,4 +1,5 @@
 {{/* Copied and adapted from themes/docsy/layouts/partials/section-index.html */}}
+{{- $sectionnumbers := partialCached "sectionnumber.html" . -}}
 <div class="section-index">
     {{ $parent := .Page }}
     {{ $pages := (where .Site.Pages "Section" .Section).ByWeight }}
@@ -12,28 +13,29 @@
     {{/* If simple_list is true we show a bulleted list of subpages */}}
         <ul>
             {{ range $pages }}
-                {{ $onlyWhen := default "base" .Params.onlyWhen }}
-                {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
                 {{ $manualLink := cond (isset .Params "manuallink") .Params.manualLink ( cond (isset .Params "manuallinkrelref") (relref . .Params.manualLinkRelref) .RelPermalink) }}
-                <li><a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{- .Title -}}</a></li>
-                {{ end }}
+                {{- $title := .Title -}}
+                {{- if site.Params.automaticSectionNumbers -}}
+                    {{- $title = printf "%s %s" ($sectionnumbers.Get .File.Path) .Title -}}
+                {{- end -}}
+                <li><a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{- $title -}}</a></li>
             {{ end }}
         </ul>
     {{ else }}
     {{/* Otherwise we show a nice formatted list of subpages with page descriptions */}}
     <hr class="panel-line">
         {{ range $pages }}
-            {{ $onlyWhen := default "base" .Params.onlyWhen }}
-            {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
             {{ $manualLink := cond (isset .Params "manuallink") .Params.manualLink ( cond (isset .Params "manuallinkrelref") (relref . .Params.manualLinkRelref) .RelPermalink) }}
-                <div class="entry">
-                    <h5>
-                        <a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{- .Title -}}</a>
-                    </h5>
-                    <p>{{ .Description | markdownify }}</p>
-                </div>
-            {{ end }}
+            <div class="entry">
+                <h5>
+                    {{- $title := .Title -}}
+                    {{- if site.Params.automaticSectionNumbers -}}
+                        {{- $title = printf "%s %s" ($sectionnumbers.Get .File.Path) .Title -}}
+                    {{- end -}}
+                    <a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{- $title -}}</a>
+                </h5>
+                <p>{{ .Description | markdownify }}</p>
+            </div>
         {{ end }}
     {{ end }}
 </div>
-<div>{{ partial "prevnextlinks.html" . }}</div>
