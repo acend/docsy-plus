@@ -160,3 +160,57 @@ The Mode Switcher will automatically open detail elements, with `mode-switcher="
 some content
 {{% /details %}}
 ```
+
+## Automatic Section Numbers
+
+This feature can be enabled by adding the following configuration in the `params` section in your `config.toml`
+
+```yaml
+automaticSectionNumbers = true
+```
+
+All Sections under docs will then have the section number prefixed to the title.
+
+### Tasks
+
+The `task` shortcode can be used on pages to have an automatic numbering of the task chapters.
+
+The following page
+
+```markdown
+---
+title: "First Page"
+weight: 10
+
+---
+
+## Title
+
+### {{% task %}} Create a File with the Name
+
+
+### {{% task %}} Create a second File with the Name
+
+```
+
+will render into:
+
+```markdown
+
+## Title
+
+### Task 1.1: Create a File with the Name
+
+
+### Task 1.2: Create a second File with the Name
+```
+
+Each time the `task` shortcode is inserted it increases the subchapter heading by one.
+
+### Link Shortcode
+
+Can be used like `ref`, but also inserts the full link with numbering and title.
+
+```markdown
+{{< link "/content/en/docs/01/_index.md" >}}
+```
