@@ -7,6 +7,20 @@
     {{ $pages = (where $pages ".Params.hide_summary" "!=" true) }}
     {{ $pages = (where $pages ".Parent" "!=" nil) }}
     {{ $pages = (where $pages "Parent.File.UniqueID" "==" $parent.File.UniqueID) }}
+
+    {{/* Get all pages where onlyWhen is set */}}
+    {{ $pagesOnlyWhen := where $pages ".Params.onlyWhen" "in" site.Params.enabledModule }}
+    {{/* Get all pages where onlyWhen is nil and combine them with the above */}}
+    {{ $pages = union $pagesOnlyWhen (where $pages ".Params.onlyWhen" "==" nil) }}
+
+    {{/* Get all pages where onlyWhenNot is set */}}
+    {{ $pagesOnlyWhenNot := where $pages ".Params.onlyWhenNot" "in" site.Params.enabledModule }}
+    {{/* Get all pages where onlyWhenNot is nil and combine them with the above */}}
+    {{ $pages = complement $pagesOnlyWhenNot (where $pages ".Params.onlyWhenNot" "==" nil) }}
+
+    {{/* Sort the pages again */}}
+    {{ $pages = $pages.ByWeight }}
+
     {{ if or $parent.Params.no_list (eq (len $pages) 0) }}
     {{/* If no_list is true or we don't have subpages we don't show a list of subpages */}}
     {{ else if $parent.Params.simple_list }}
