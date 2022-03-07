@@ -1,9 +1,9 @@
-{{ $ref := .Get 0 }}
+{{- $ref := .Get 0 -}}
 {{- $sectionnumber := "" -}}
-{{ with site.GetPage $ref }}
-{{- if site.Params.automaticSectionNumbers -}}
-{{- $sectionnumbers := partialCached "sectionnumber.html" . -}}
-{{- $sectionnumber = $sectionnumbers.Get .File.Path -}}
-{{- end -}}
+{{- with site.GetPage $ref -}}
+{{-   if site.Params.automaticSectionNumbers -}}
+{{-     $sectionnumbers := partialCached "sectionnumber.html" . -}}
+{{-     $sectionnumber = $sectionnumbers.Get .File.Path -}}
+{{-   end -}}
 <a href="{{ .Permalink }}">{{ $sectionnumber }} {{ .Title }}</a>
-{{ end }}
+{{- end -}}
