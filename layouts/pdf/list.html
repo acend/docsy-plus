@@ -1,20 +1,46 @@
 {{ define "main" }}
     {{ range .Site.Sections }}
-        {{if or (eq .Type "docs")}}
-        <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
-        {{ .Content }}
-            {{ range .Pages }}
+        <!-- only render labs section -->
+        {{if and (eq .Type "docs")}}
+            <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h1>
+            {{ .Content }}
+            {{ range .Sections}}
                 {{ $onlyWhen := default "base" .Params.onlyWhen }}
                 {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
-                <h2 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }} pages</h2>
-                {{ .Content }}
-                <div class="pdf-break-after"></div>
+                    <h2 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h2>
+                    <!-- dirty hack to increase the heading tags by one to have the correct bookmark hierarchy in the pdf -->
+                    {{ $content := .Content }}
+                    {{ $content := replace $content "<h5" "<h6"}}
+                    {{ $content := replace $content "</h5" "</h6"}}
+                    {{ $content := replace $content "<h4" "<h5"}}
+                    {{ $content := replace $content "</h4" "</h5"}}
+                    {{ $content := replace $content "<h3" "<h4"}}
+                    {{ $content := replace $content "</h3" "</h4"}}
+                    {{ $content := replace $content "<h2" "<h3"}}
+                    {{ $content := replace $content "</h2" "</h3"}}
+                    {{ $content | safeHTML }}
+                    {{ range .Pages }}
+                        {{ $onlyWhen := default "base" .Params.onlyWhen }}
+                        {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
+                            <h3 id="{{ substr .RelPermalink 1 -1 }}">{{ .Title }}</h3>
+                            <!-- dirty hack to increase the heading tags by two to have the correct bookmark hierarchy in the pdf -->
+                            {{ $content := .Content }}
+                            {{ $content := replace $content "<h4" "<h6"}}
+                            {{ $content := replace $content "</h4" "</h6"}}
+                            {{ $content := replace $content "<h3" "<h5"}}
+                            {{ $content := replace $content "</h3" "</h5"}}
+                            {{ $content := replace $content "<h2" "<h4"}}
+                            {{ $content := replace $content "</h2" "</h4"}}
+                            {{ $content | safeHTML }}
+                            <div class="pdf-break-after"></div>
+                        {{ end }}
+                    {{ end }}
                 {{ end }}
-            {{ end }}
             {{ end }}
         {{ end }}
     {{ end }}
-    {{ define "footer" }}
+{{ end }}
+{{ define "footer" }}
 {{ end }}
 {{ define "pdftitle" }}
 <div class="pdf-title">
@@ -22,4 +48,3 @@
 </div>
 <div class="pdf-break-after"></div>
 {{ end }}
-
