@@ -16,7 +16,7 @@
     {{/* Get all pages where onlyWhenNot is set */}}
     {{ $pagesOnlyWhenNot := where $pages ".Params.onlyWhenNot" "in" site.Params.enabledModule }}
     {{/* Get all pages where onlyWhenNot is nil and combine them with the above */}}
-    {{ $pages = complement $pagesOnlyWhenNot (where $pages ".Params.onlyWhenNot" "==" nil) }}
+    {{ $pages = complement $pagesOnlyWhenNot $pages }}
 
     {{/* Sort the pages again */}}
     {{ $pages = $pages.ByWeight }}
