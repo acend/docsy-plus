@@ -4,6 +4,15 @@
     {{ partial "head.html" . }}
     {{ block "additionalhead" . }}{{ end }}
     <script>
+      window.addEventListener("load", () => {
+        document.querySelectorAll("details").forEach((details) => {
+          const pdfpage = document.body.classList.contains('acendpdfbody');
+          if (true === pdfpage) {
+            details.setAttribute("open", "true");
+            details.classList.add("normalmode");
+          }
+        });
+      });
       function substitutePdfVariables() {
   
           function getParameterByName(name) {
