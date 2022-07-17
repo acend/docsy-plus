@@ -16,12 +16,16 @@ window.addEventListener("load", () => {
       </li>
     `;
   const nav = document.getElementById("main_navbar");
-  nav.querySelector("ul").insertAdjacentHTML("afterbegin", template);
+  if(nav !== null) {
+    nav.querySelector("ul").insertAdjacentHTML("afterbegin", template);
+  }
 
   const input = document.getElementById("mode-switch-input");
   const initialMode = readMode();
-  input.addEventListener("change", onModeChange);
-  input.checked = initialMode === TRAINING_MODE_EXPERT;
+  if(input !== null){
+    input.addEventListener("change", onModeChange);
+    input.checked = initialMode === TRAINING_MODE_EXPERT;
+  }
   updateDetailsOpenState(initialMode);
 
   function readMode() {
@@ -41,10 +45,15 @@ window.addEventListener("load", () => {
   }
 
   function updateDetailsOpenState(mode) {
+    const pdfpage = document.body.classList.contains('acendpdfbody');
     document.querySelectorAll("details").forEach((details) => {
       // Only open detail elements with data-mode="normalexpertmode" attributes
       if (details.dataset.mode === "normalexpertmode") {
-        if (mode === TRAINING_MODE_EXPERT) {
+        if (true === pdfpage){
+          // when pdf page is rendering, open hints
+          details.setAttribute("open", "true");
+          details.classList.add("normalmode");
+        } else if (mode === TRAINING_MODE_EXPERT) {
           details.removeAttribute("open");
           details.classList.remove("normalmode");
         } else {
