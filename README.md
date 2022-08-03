@@ -8,17 +8,16 @@ The docsy-plus theme inherites from the docsy theme through Hugos [Theme Compone
 To add the docsy and docsy-plus themes to an existing Hugo project, run the following commands from your project’s root directory:
 
 ```sh
-git submodule add https://github.com/google/docsy.git themes/docsy
-git submodule add https://github.com/acend/docsy-plus.git themes/docsy-plus
-git submodule update --init --recursive
+hugo mod get github.com/acend/docsy-plus
 ```
-
-Reference both themes in your configuration, the docsy-plus needs to come first.
 
 Example config.toml:
 
 ```toml
-theme = ["docsy-plus", "docsy"]
+[module]
+  [[module.imports]]
+    path = "github.com/acend/docsy-plus"
+    disable = false
 ```
 
 ## Shortcodes and Additional Features
