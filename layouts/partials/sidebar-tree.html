@@ -39,7 +39,7 @@
 {{ $p := .page -}}
 {{ $sectionnumber := "" }}
 {{ if site.Params.automaticSectionNumbers }}
-  {{ $sectionnumbers := partialCached "sectionnumber.html" .page }}
+  {{ $sectionnumbers := partial "sectionnumber.html" .page }}
   {{ $sectionnumber = $sectionnumbers.Get .section.File.Path }}
 {{ end }}
 {{ $shouldDelayActive := .shouldDelayActive -}}

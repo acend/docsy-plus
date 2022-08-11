@@ -13,12 +13,14 @@
   {{ $sectionNr }}{{ $s }}
   {{ .data.Set $s.File.Path $sectionNr }}
   {{- if $withChild }}
-    {{ range $index, $item := $pages -}}
-      {{ $onlyWhen := default "base" $item.Params.onlyWhen }}
-      {{ if and (in site.Params.enabledModule $onlyWhen) (not (in site.Params.enabledModule $item.Params.onlyWhenNot)) }}
-      {{ if (not (and (eq $s site.Home) (eq $item.Params.toc_root true))) -}}
-        {{ $newSectionNr := printf "%s%d." $sectionNr (add $index 1) }}
-        {{ $d = partial "sectionnumber-nested" (dict "page" $p "section" $item "sectionNr" $newSectionNr "data" $d) }}
+    {{ $count := 0 }}
+    {{ range $pages -}}
+      {{ $onlyWhen := default "base" .Params.onlyWhen }}
+      {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
+      {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
+        {{ $count = add $count 1 }}
+        {{ $newSectionNr := printf "%s%d." $sectionNr $count }}
+        {{ $d = partial "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) }}
       {{- end }}
       {{- end }}
       {{- end }}

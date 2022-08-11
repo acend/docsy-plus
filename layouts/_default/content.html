@@ -1,7 +1,7 @@
 {{/* Copied and adapted from themes/docsy/layouts/_default/content.html */}}
 <div class="td-content">
     {{- if site.Params.automaticSectionNumbers -}}
-    {{- $sectionnumbers := partialCached "sectionnumber.html" . -}}
+    {{- $sectionnumbers := partial "sectionnumber.html" . -}}
     <h1>{{ $sectionnumbers.Get .File.Path }} {{ .Title }}</h1>
     {{- else -}}
 	<h1>{{ .Title }}</h1>
