@@ -1,29 +1,32 @@
 {{ $navRoot := cond (and (ne .Params.toc_root true) (eq .Site.Home.Type "docs")) .Site.Home .FirstSection -}}
-{{ $data := newScratch }}
-{{ $data = partial "sectionnumber-nested" (dict "page" . "section" $navRoot "data" $data) }}
+{{ $data := $navRoot.Scratch }}
+{{/* partialCached does not work here. The Scratch is sometimes empty and only contains data when content is modified */}}
+{{/* Check if the current page was already evaluated */}}
+{{ if not ($data.Get .File.Path) }}
+    {{ $data = partial "sectionnumber-nested" (dict "page" . "section" $navRoot "data" $data) . $navRoot }}
+{{ end }}
 {{ return $data }}
 
 {{ define "partials/sectionnumber-nested" -}}
-{{ $s := .section }}
-{{ $p := .page }}
-{{ $d := .data }}
-{{ $sectionNr := .sectionNr | default "" }}
-{{ $pages := (union .section.Pages $s.Sections).ByWeight -}}
-{{ $withChild := gt (len $pages) 0 -}}
-  {{ $sectionNr }}{{ $s }}
+  {{ $s := .section }}
+  {{ $p := .page }}
+  {{ $d := .data }}
+  {{ $sectionNr := .sectionNr | default "" }}
   {{ .data.Set $s.File.Path $sectionNr }}
+  {{ $pages := (union $s.Pages $s.Sections).ByWeight -}}
+  {{ $withChild := gt (len $pages) 0 -}}
   {{- if $withChild }}
     {{ $count := 0 }}
     {{ range $pages -}}
       {{ $onlyWhen := default "base" .Params.onlyWhen }}
       {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
-      {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
-        {{ $count = add $count 1 }}
-        {{ $newSectionNr := printf "%s%d." $sectionNr $count }}
-        {{ $d = partial "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) }}
-      {{- end }}
-      {{- end }}
+        {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
+          {{ $count = add $count 1 }}
+          {{ $newSectionNr := printf "%s%d." $sectionNr $count }}
+          {{ $d = partial "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) }}
+        {{- end }}
       {{- end }}
     {{- end }}
-    {{ return $d }}
+  {{- end }}
+  {{ return $d }}
 {{- end }}
