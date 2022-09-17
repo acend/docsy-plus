@@ -1,4 +1,8 @@
 {{ define "main" }}
+    <link href='http://fonts.googleapis.com/css?family=Courier+Prime' rel='stylesheet' type='text/css'>
+    <style type = "text/css">
+        code { font-family: 'Courier Prime', monospace; }
+    </style>
     {{ range .Site.Sections }}
         <!-- only render labs section -->
         {{if and (eq .Type "docs")}}
