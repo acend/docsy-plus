@@ -1,70 +1,71 @@
 {{ define "main" }}
-    <link href='http://fonts.googleapis.com/css?family=Courier+Prime' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <style type = "text/css">
-        code { font-family: 'Courier Prime', monospace; }
+        code { font-family: 'Inconsolata', monospace; }
     </style>
     {{ range .Site.Sections }}
         <!-- only render labs section -->
         {{if and (eq .Type "docs")}}
             <!-- 1st-level pages, e.g. content/en/setup/_index.md and content/en/docs/_index.md -->
             <!-- These pages are the 1st-level in the toc -->
-            <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-weight: bold;">{{ .Title }}-h1</h1>
+            <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-weight: bold;">{{ .Title }}</h1>
             <!-- dirty hack to have a nice table of contents -->
             <!-- h-tags are simulated by p-tags in order to not appear in the toc -->
             <!-- and the hierarchy of the headers is decremented by one -->
             {{ $content := .Content }}
             {{ $content := replace $content "<h6" "<p"}}
-            {{ $content := replace $content "</h6" "-h7.1</p"}}
+            {{ $content := replace $content "</h6" "</p"}}
             {{ $content := replace $content "<h5" "<p style=\"display: block; font-size: 1.3em; margin-top: 0.2em; margin-bottom: 0.2em;margin-left: 0; margin-right: 0;\""}}
-            {{ $content := replace $content "</h5" "-h6.1</p"}}
+            {{ $content := replace $content "</h5" "</p"}}
             {{ $content := replace $content "<h4" "<p style=\"display: block; font-size: 1.4em; margin-top: 0.2em; margin-bottom: 0.2em;margin-left: 0; margin-right: 0;\""}}
-            {{ $content := replace $content "</h4" "-h5.1</p"}}
+            {{ $content := replace $content "</h4" "</p"}}
             {{ $content := replace $content "<h3" "<p style=\"display: block; font-size: 1.6em; margin-top: 1em; margin-bottom: 0.7em;margin-left: 0; margin-right: 0;\""}}
-            {{ $content := replace $content "</h3" "-h4.1</p"}}
+            {{ $content := replace $content "</h3" "</p"}}
             {{ $content := replace $content "<h2" "<p style=\"display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0;\""}}
-            {{ $content := replace $content "</h2" "-h3.1</p"}}
+            {{ $content := replace $content "</h2" "</p"}}
             {{ $content | safeHTML }}
-            {{ range .Sections}}
+            {{ range (union .Pages .Sections)}}
                 {{ $onlyWhen := default "base" .Params.onlyWhen }}
                 {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
                     <!-- 2nd-level pages like content/en/docs/01/_index.md -->
+                    <!-- but also pages like content/en/docs/concurrency.md -->
                     <!-- These pages are the 2nd-level in the toc -->
-                    <h2 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-size: 2em; font-weight: bold;">{{ .Title }}-h2</h2>
+                    <h2 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-size: 2em; font-weight: bold;">{{ .Title }}</h2>
                     <!-- dirty hack to have a nice table of contents -->
                     <!-- h-tags are simulated by p-tags in order to not appear in the toc -->
                     <!-- and the hierarchy of the headers is decremented by one, i.e. h3 is now h4 -->
                     {{ $content := .Content }}
                     {{ $content := replace $content "<h6" "<p"}}
-                    {{ $content := replace $content "</h6" "-h7.2</p"}}
+                    {{ $content := replace $content "</h6" "</p"}}
                     {{ $content := replace $content "<h5" "<p style=\"display: block; font-size: 1.3em; margin-top: 0.2em; margin-bottom: 0.2em;margin-left: 0; margin-right: 0;\""}}
-                    {{ $content := replace $content "</h5" "-h6.2</p"}}
+                    {{ $content := replace $content "</h5" "</p"}}
                     {{ $content := replace $content "<h4" "<p style=\"display: block; font-size: 1.4em; margin-top: 0.2em; margin-bottom: 0.2em;margin-left: 0; margin-right: 0;\""}}
-                    {{ $content := replace $content "</h4" "-h5.2</p"}}
+                    {{ $content := replace $content "</h4" "</p"}}
                     {{ $content := replace $content "<h3" "<p style=\"display: block; font-size: 1.6em; margin-top: 1em; margin-bottom: 0.7em;margin-left: 0; margin-right: 0;\""}}
-                    {{ $content := replace $content "</h3" "-h4.2</p"}}
+                    {{ $content := replace $content "</h3" "</p"}}
                     {{ $content := replace $content "<h2" "<p style=\"display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0;\""}}
-                    {{ $content := replace $content "</h2" "-h3.2</p"}}
+                    {{ $content := replace $content "</h2" "</p"}}
                     {{ $content | safeHTML }}
                     {{ range .Pages }}
                         {{ $onlyWhen := default "base" .Params.onlyWhen }}
                         {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
                             <!-- 3rd-level pages like content/en/docs/05/helm.md -->
                             <!-- These pages do not appear in the toc -->
-                            <p id="{{ substr .RelPermalink 1 -1 }}" style="display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0; font-weight: bold;">{{ .Title }}-h2.3</p>
+                            <p id="{{ substr .RelPermalink 1 -1 }}" style="display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0; font-weight: bold;">{{ .Title }}</p>
                             <!-- dirty hack to have a nice table of contents -->
                             <!-- h-tags are simulated by p-tags in order to not appear in the toc -->
                             <!-- and the hierarchy of the headers is decremented by two, i.e. h3 is now h5 -->
                             {{ $content := .Content }}
                             {{ $content := replace $content "<h6" "<p"}}
-                            {{ $content := replace $content "</h6" "-h7.3</p"}}
+                            {{ $content := replace $content "</h6" "</p"}}
                             {{ $content := replace $content "<h5" "<p style=\"display: block; font-size: 1.3em; margin-top: 0.2em; margin-bottom: 0.2em;margin-left: 0; margin-right: 0;\""}}
-                            {{ $content := replace $content "</h5" "-h6.3</p"}}
+                            {{ $content := replace $content "</h5" "</p"}}
                             {{ $content := replace $content "<h4" "<p style=\"display: block; font-size: 1.4em; margin-top: 0.2em; margin-bottom: 0.2em;margin-left: 0; margin-right: 0;\""}}
-                            {{ $content := replace $content "</h4" "-h5.3</p"}}
+                            {{ $content := replace $content "</h4" "</p"}}
                             {{ $content := replace $content "<h3" "<p style=\"display: block; font-size: 1.6em; margin-top: 1em; margin-bottom: 0.7em;margin-left: 0; margin-right: 0;\""}}
-                            {{ $content := replace $content "</h3" "-h4.3</p"}}
+                            {{ $content := replace $content "</h3" "</p"}}
                             {{ $content := replace $content "<h2" "<p style=\"display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0;\""}}
-                            {{ $content := replace $content "</h2" "-h3.3</p"}}
+                            {{ $content := replace $content "</h2" "</p"}}
                             {{ $content | safeHTML }}
                             <div class="pdf-break-after"></div>
                         {{ end }}
