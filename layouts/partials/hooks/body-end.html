@@ -1,17 +1,25 @@
-{{ $jsSite := "" }}
 {{ $jsCodeCopy := resources.Get "js/code-copy.js" }}
-{{ $jsModeSwitcher := resources.Get "js/mode-switcher.js" }}
-{{ $jsModeSwitcher = $jsModeSwitcher | resources.ExecuteAsTemplate "mode-switcher.js" . }}
+{{ $jsLibs := slice $jsCodeCopy }}
+
+{{ if .Site.Params.ModeSwitcher }}
+  {{ $jsModeSwitcher := resources.Get "js/mode-switcher.js" }}
+  {{ $jsLibs = $jsLibs | append $jsModeSwitcher }}
+{{ end }}
+
 {{ if .Site.Params.ReplaceContent.Placeholders }}
-{{ $jsReplaceContent := resources.Get "js/replace-content.js" }}
-{{ $jsReplaceContent = $jsReplaceContent | resources.ExecuteAsTemplate "replace-content.js" . }}
-{{ $jsSite = (slice $jsCodeCopy $jsReplaceContent $jsModeSwitcher) | resources.Concat "js/site.js" }}
-{{ else }}
-{{ $jsSite = (slice $jsCodeCopy $jsModeSwitcher) | resources.Concat "js/site.js" }}
+  {{ $jsReplaceContent := resources.Get "js/replace-content.js" }}
+  {{ $jsReplaceContent = $jsReplaceContent | resources.ExecuteAsTemplate "replace-content.js" . }}
+  {{ $jsLibs = $jsLibs | append $jsReplaceContent }}
 {{ end }}
-{{ if .Site.IsServer }}
-<script src="{{ $jsSite.RelPermalink }}"></script>
-{{ else }}
-{{ $jsSite := $jsSite | minify | fingerprint }}
-<script src="{{ $jsSite.RelPermalink }}" integrity="{{ $jsSite.Data.Integrity }}" crossorigin="anonymous"></script>
+
+{{ $jsSite := $jsLibs | resources.Concat "js/site.js" }}
+
+{{ if not .Site.IsServer }}
+  {{ $jsSite = $jsSite | minify }}
 {{ end }}
+{{ $jsSite = $jsSite | fingerprint }}
+
+<script src="{{ $jsSite.Permalink }}" integrity="{{ $jsSite.Data.Integrity }}" crossorigin="anonymous"></script>
+
+{{/* Allow trainings to add more Javascript */}}
+{{ partial "hooks/body-end-custom.html" . }}

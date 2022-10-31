@@ -1,5 +1,3 @@
-{{ if .Site.Params.ModeSwitcher }}
-
 window.addEventListener("load", () => {
   const TRAINING_MODE_KEY = "trainingMode";
   const TRAINING_MODE_NORMAL = "normal";
@@ -64,6 +62,3 @@ window.addEventListener("load", () => {
     });
   }
 });
-
-
-{{end}}
