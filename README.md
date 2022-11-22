@@ -20,6 +20,14 @@ Example config.toml:
     disable = false
 ```
 
+### Development
+
+Test feature branches with your existing Hugo project:
+
+```sh
+hugo mod get -u github.com/acend/docsy-plus@<feature-branch-name>
+```
+
 ## Shortcodes and Additional Features
 
 For docsy shortcodes see here: [Docsy Shortcodes](https://www.docsy.dev/docs/adding-content/shortcodes/).
