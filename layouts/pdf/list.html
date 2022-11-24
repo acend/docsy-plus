@@ -1,4 +1,5 @@
 {{ define "main" }}
+<div class="td-content">
     <link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet' type='text/css'>
     <style type = "text/css">
         code { font-family: 'Inconsolata', monospace; }
@@ -74,12 +75,13 @@
             {{ end }}
         {{ end }}
     {{ end }}
+</div>
 {{ end }}
 {{ define "footer" }}
 {{ end }}
 {{ define "pdftitle" }}
 <div class="pdf-title">
-    <p>{{ .Site.Params.pdf.title }}</p>
+    <p>{{ .Site.Params.title }}</p>
 </div>
 <div class="pdf-break-after"></div>
 {{ end }}
