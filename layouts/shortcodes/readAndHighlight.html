@@ -29,8 +29,9 @@ if the file is not found */}}
 
 {{ if fileExists ($.Scratch.Get "filepath") }}
   {{ if eq (.Get "code") "true" }}
+    {{ $options := slice "hl_lines=(.Get "lines")"}}
     {{- highlight ($.Scratch.Get "filepath" | readFile | htmlUnescape |
-    safeHTML ) (.Get "lang") \"hl_lines=(.Get "lines")\" -}}
+    safeHTML ) (.Get "lang") (delimit $options ",") -}}
   {{ else }}
     {{- $.Scratch.Get "filepath" | os.ReadFile | .Page.RenderString | safeHTML -}}
   {{ end }}
