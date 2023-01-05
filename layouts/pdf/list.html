@@ -32,6 +32,8 @@
             {{ $content := replace $content "</h2" "</p"}}
             <!-- Replace youtube iframe with link -->
             {{ $content := replaceRE `<iframe\s+src=(".*?").*?<\/iframe>` "<a href=$1>Link to youtube video</a>" $content }}
+            <!-- Links to other chapters, i.e. local links, will not work in the pdf, so replace them with text -->
+            {{ $content := replaceRE `<a\s+href="\/.*?">(.*?)<\/a>` "<em>$1</em>" $content }}
             {{ $content | safeHTML }}
             {{ range (union .Pages .Sections)}}
                 {{ $onlyWhen := default "base" .Params.onlyWhen }}
@@ -61,6 +63,8 @@
                     {{ $content := replace $content "</h2" "</p"}}
                     <!-- Replace youtube iframe with link -->
                     {{ $content := replaceRE `<iframe\s+src=(".*?").*?<\/iframe>` "<a href=$1>Link to youtube video</a>" $content }}
+                    <!-- Links to other chapters, i.e. local links, will not work in the pdf, so replace them with text -->
+                    {{ $content := replaceRE `<a\s+href="\/.*?">(.*?)<\/a>` "<em>$1</em>" $content }}
                     {{ $content | safeHTML }}
                     {{ range .Pages }}
                         {{ $onlyWhen := default "base" .Params.onlyWhen }}
@@ -89,6 +93,8 @@
                             {{ $content := replace $content "</h2" "</p"}}
                             <!-- Replace youtube iframe with link -->
                             {{ $content := replaceRE `<iframe\s+src=(".*?").*?<\/iframe>` "<a href=$1>Link to youtube video</a>" $content }}
+                            <!-- Links to other chapters, i.e. local links, will not work in the pdf, so replace them with text -->
+                            {{ $content := replaceRE `<a\s+href="\/.*?">(.*?)<\/a>` "<em>$1</em>" $content }}
                             {{ $content | safeHTML }}
                             <div class="pdf-break-after"></div>
                         {{ end }}
