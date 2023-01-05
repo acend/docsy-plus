@@ -29,8 +29,7 @@ if the file is not found */}}
 
 {{ if fileExists ($.Scratch.Get "filepath") }}
   {{ if eq (.Get "code") "true" }}
-    {{ $hloptionsPane := default "" ($.Get "highlight") -}}
-    {{ $hloptions := $hloptionsPane -}}
+    {{ $hloptions := default "" ($.Get "highlight")  -}}
     {{- highlight ($.Scratch.Get "filepath" | readFile | htmlUnescape |
     safeHTML ) (.Get "lang") $hloptions -}}
   {{ else }}
