@@ -13,7 +13,7 @@ window.addEventListener("load", () => {
     new RegExp(
       `^https?://([-a-z0-9]+\\.)*(${allowedHosts
         .map((h) => h.replace(".", "\\."))
-        .join("|")})(:[0-9]+)?$|^[A-Za-z0-9]+$`
+        .join("|")})(:[0-9]+)?$|^[-a-zA-Z0-9()@:%_\+.~#?&\/=]+$`
     );
   const storedPlaceholders = readPlaceholders();
 
