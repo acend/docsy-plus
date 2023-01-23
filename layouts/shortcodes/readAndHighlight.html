@@ -36,7 +36,5 @@ if the file is not found */}}
     {{- $.Scratch.Get "filepath" | os.ReadFile | .Page.RenderString | safeHTML -}}
   {{ end }}
 {{ else }}
-
-<p style="color: #D74848"><b><i>The file <code>{{ $.Scratch.Get "filepath" }}</code> was not found.</i></b></p>
-
+  {{errorf "The file %q was not found." .Path }}
 {{ end }}
