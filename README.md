@@ -152,12 +152,22 @@ modeSwitcher = "true"
 
 ### how to use
 
-The Mode Switcher will automatically open detail elements, with `mode-switcher="enabled"` if it's on normal mode. the elements are closed in expert mode
+The Mode Switcher will automatically open detail elements, with `mode-switcher="enabled"` if it's on normal mode. The elements are closed in expert mode
 
 ```markdown
 {{% details title="Task 2" mode-switcher="normalexpertmode" %}}
 some content
 {{% /details %}}
+```
+#### Exception
+
+When using the Mode Switcher and including a nested Read and Highlight shortcode in the element, the formatting differs from the above described use case.
+```markdown
+{{< details title="solution" mode-switcher="normalexpertmode" >}}
+
+{{% readAndHighlight file="<the path to your file>" code="true" lang="yaml" highlight="hl_lines=<the line numbers, e.g. 5 6-7>"%}}
+
+{{< /details >}}
 ```
 
 ## Automatic Section Numbers
@@ -212,4 +222,16 @@ Can be used like `ref`, but also inserts the full link with numbering and title.
 
 ```markdown
 {{< link "/content/en/docs/01/_index.md" >}}
+```
+
+## Read And Highlight
+
+To highlight code that is parsed into the file from a separate file, the Read And Highlight shortcode should be used.
+
+### how to use
+
+When adapting the following example to your use case, replace the comments inside the <> with your values.
+
+```markdown
+{{% readAndHighlight file="<the path to your file>" code="true" lang="< language used e.g. yaml>" highlight="hl_lines=<the line numbers, e.g. 5 6-7>"%}}
 ```
