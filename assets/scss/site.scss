@@ -1,8 +1,16 @@
 /* import variables from docsy */
 @import 'variables';
 
-.alert-primary{
+.alert-info{
  background: #dbe6eb;   
+}
+
+.alert-warning{
+ background: #ffe4c9; 
+}
+
+.alert-danger{
+ background: #ffb5b5;
 }
 
 /* copy button */
