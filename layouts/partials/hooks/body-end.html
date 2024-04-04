@@ -1,5 +1,4 @@
-{{ $jsCodeCopy := resources.Get "js/code-copy.js" }}
-{{ $jsLibs := slice $jsCodeCopy }}
+{{ $jsLibs := slice }}
 
 {{ if .Site.Params.ModeSwitcher }}
   {{ $jsModeSwitcher := resources.Get "js/mode-switcher.js" }}
@@ -12,14 +11,16 @@
   {{ $jsLibs = $jsLibs | append $jsReplaceContent }}
 {{ end }}
 
-{{ $jsSite := $jsLibs | resources.Concat "js/site.js" }}
+{{ if $jsLibs }}
+    {{ $jsSite := $jsLibs | resources.Concat "js/site.js" }}
 
-{{ if not .Site.IsServer }}
-  {{ $jsSite = $jsSite | minify }}
+    {{ if not .Site.IsServer }}
+      {{ $jsSite = $jsSite | minify }}
+    {{ end }}
+    {{ $jsSite = $jsSite | fingerprint }}
+
+    <script src="{{ $jsSite.Permalink }}" integrity="{{ $jsSite.Data.Integrity }}" crossorigin="anonymous"></script>
 {{ end }}
-{{ $jsSite = $jsSite | fingerprint }}
-
-<script src="{{ $jsSite.Permalink }}" integrity="{{ $jsSite.Data.Integrity }}" crossorigin="anonymous"></script>
 
 {{/* Allow trainings to add more Javascript */}}
 {{ partial "hooks/body-end-custom.html" . }}
