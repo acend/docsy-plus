@@ -1,6 +1,6 @@
 {{- .Page.Scratch.Add "task" 1 -}}
 {{- if site.Params.automaticSectionNumbers -}}
-{{- $sectionnumbers := partialCached "sectionnumber.html" .Page -}}
+{{- $sectionnumbers := partialCached "sectionnumber.html" .Page .Page.File.Path -}}
 Task {{ $sectionnumbers.Get .Page.File.Path }}{{ .Page.Scratch.Get "task" }}:
 {{- else -}}
 {{- with .Page.Params.sectionnumber -}}

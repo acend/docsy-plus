@@ -2,7 +2,7 @@
 {{- $sectionnumber := "" -}}
 {{- with site.GetPage $ref -}}
 {{-   if site.Params.automaticSectionNumbers -}}
-{{-     $sectionnumbers := partialCached "sectionnumber.html" . -}}
+{{-     $sectionnumbers := partialCached "sectionnumber.html" . .File.Path -}}
 {{-     $sectionnumber = $sectionnumbers.Get .File.Path -}}
 {{-   end -}}
 <a href="{{ .Permalink }}">{{ $sectionnumber }} {{ .Title }}</a>

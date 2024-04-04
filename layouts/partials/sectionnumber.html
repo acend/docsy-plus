@@ -1,9 +1,12 @@
+{{ if not (in .Site.Params.enabledModule "base") }}
+  {{ warnf "Section numbers do not work correctly unless 'base' is in params.enabledModule" }}
+{{ end }}
+
 {{ $navRoot := cond (and (ne .Params.toc_root true) (eq .Site.Home.Type "docs")) .Site.Home .FirstSection -}}
 {{ $data := $navRoot.Scratch }}
-{{/* partialCached does not work here. The Scratch is sometimes empty and only contains data when content is modified */}}
 {{/* Check if the current page was already evaluated */}}
 {{ if not ($data.Get .File.Path) }}
-    {{ $data = partial "sectionnumber-nested" (dict "page" . "section" $navRoot "data" $data) . $navRoot }}
+    {{ $data = partialCached "sectionnumber-nested" (dict "page" . "section" $navRoot "data" $data) $navRoot.File.Path }}
 {{ end }}
 {{ return $data }}
 
@@ -23,7 +26,7 @@
         {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
           {{ $count = add $count 1 }}
           {{ $newSectionNr := printf "%s%d." $sectionNr $count }}
-          {{ $d = partial "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) }}
+          {{ $d = partialCached "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) .File.Path }}
         {{- end }}
       {{- end }}
     {{- end }}
