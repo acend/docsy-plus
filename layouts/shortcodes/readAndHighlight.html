@@ -29,10 +29,10 @@ if the file is not found */}}
 
 {{ if fileExists ($.Scratch.Get "filepath") }}
   {{ if eq (.Get "code") "true" }}
-    {{ $hloptions := default "" ($.Get "highlight")  -}}
-    {{- highlight ($.Scratch.Get "filepath" | readFile | htmlUnescape) (.Get "lang") $hloptions -}}
+    {{ $hloptions := default "" ($.Get "highlight")  }}
+    {{ highlight ($.Scratch.Get "filepath" | readFile | htmlUnescape) (.Get "lang") $hloptions }}
   {{ else }}
-    {{- $.Scratch.Get "filepath" | os.ReadFile | .Page.RenderString | safeHTML -}}
+    {{ $.Scratch.Get "filepath" | os.ReadFile | .Page.RenderString | safeHTML }}
   {{ end }}
 {{ else }}
   {{errorf "The file %q was not found." .Path }}
