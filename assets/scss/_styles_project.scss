@@ -1,41 +1,13 @@
-/* import variables from docsy */
-@import 'variables';
-
 .alert-info{
- background: #dbe6eb;   
+ background: #dbe6eb;
 }
 
 .alert-warning{
- background: #ffe4c9; 
+ background: #ffe4c9;
 }
 
 .alert-danger{
  background: #ffb5b5;
-}
-
-/* copy button */
-.highlight {
-    position: relative;
-}
-.highlight pre {
-    padding-right: 75px;
-}
-.highlight-copy-btn {
-    position: absolute;
-    bottom: 7px;
-    right: 7px;
-    border: 0;
-    border-radius: 4px;
-    padding: 1px;
-    font-size: 0.7em;
-    line-height: 1.8;
-    color: $white;
-    background-color: $gray-600;
-    min-width: 55px;
-    text-align: center;
-}
-.highlight-copy-btn:hover {
-    background-color: $gray-700;
 }
 
 /* details elements */
@@ -118,7 +90,7 @@ details[open].normalmode > summary{
 
 
   /* pdf styling */
-  
+
   .pdf-title p{
     text-align: center;
     font-size: xx-large;
@@ -142,7 +114,7 @@ details[open].normalmode > summary{
     text-align: right;
     font-size: smaller;
   }
-  
+
   .pdf-keep-together {
     page-break-inside: avoid;
     display:block;
