@@ -1,4 +1,21 @@
 
+# This output format configuration is necessary
+# to ensure that Hugo sets the Page.Store values
+# for sectionnumbers before rendering the site.
+# There is an associated layout for the homepage.
+# This is a bit of a hack, but I don't know any better way.
+# To activate the sectionnumbers, add the format to your outputs.
+[outputFormats]
+  [outputFormats.sectionnumber]
+    mediaType = 'text/html'
+    notAlternative = true
+    weight = 1
+    # Make sure that the output does not override the homepage.
+    # Seems to only happen locally in some cases.
+    basename = ".ignore"
+  [outputFormats.html]
+    weight = 2
+
 [module]
   [module.hugoVersion]
     extended = true

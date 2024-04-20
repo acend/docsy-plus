@@ -1,35 +1,3 @@
-{{ if not (in .Site.Params.enabledModule "base") }}
-  {{ warnf "Section numbers do not work correctly unless 'base' is in params.enabledModule" }}
-{{ end }}
-
-{{ $navRoot := cond (and (ne .Params.toc_root true) (eq .Site.Home.Type "docs")) .Site.Home .FirstSection -}}
-{{ $data := $navRoot.Scratch }}
-{{/* Check if the current page was already evaluated */}}
-{{ if not ($data.Get .File.Path) }}
-    {{ $data = partialCached "sectionnumber-nested" (dict "page" . "section" $navRoot "data" $data) $navRoot.File.Path }}
-{{ end }}
-{{ return $data }}
-
-{{ define "partials/sectionnumber-nested" -}}
-  {{ $s := .section }}
-  {{ $p := .page }}
-  {{ $d := .data }}
-  {{ $sectionNr := .sectionNr | default "" }}
-  {{ .data.Set $s.File.Path $sectionNr }}
-  {{ $pages := (union $s.Pages $s.Sections).ByWeight -}}
-  {{ $withChild := gt (len $pages) 0 -}}
-  {{- if $withChild }}
-    {{ $count := 0 }}
-    {{ range $pages -}}
-      {{ $onlyWhen := default "base" .Params.onlyWhen }}
-      {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
-        {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
-          {{ $count = add $count 1 }}
-          {{ $newSectionNr := printf "%s%d." $sectionNr $count }}
-          {{ $d = partialCached "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) .File.Path }}
-        {{- end }}
-      {{- end }}
-    {{- end }}
-  {{- end }}
-  {{ return $d }}
-{{- end }}
+{{- with .Store.Get "sectionnumber" -}}
+    {{- fmt.Printf "%s " . -}}
+{{- end -}}

@@ -10,12 +10,7 @@
         {{if and (eq .Type "docs")}}
             <!-- 1st-level pages, e.g. content/en/setup/_index.md and content/en/docs/_index.md -->
             <!-- These pages are the 1st-level in the toc -->
-            {{- if site.Params.automaticSectionNumbers -}}
-                {{- $sectionnumbers := partialCached "sectionnumber.html" . .File.Path -}}
-                <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-weight: bold;">{{ $sectionnumbers.Get .File.Path }} {{ .Title }}</h1>
-            {{- else -}}
-                <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-weight: bold;">{{ .Title }}</h1>
-            {{- end -}}
+            <h1 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-weight: bold;">{{ partial "sectionnumber" . }}{{ .Title }}</h1>
             <!-- dirty hack to have a nice table of contents -->
             <!-- h-tags are simulated by p-tags in order to not appear in the toc -->
             <!-- and the hierarchy of the headers is decremented by one -->
@@ -41,12 +36,7 @@
                     <!-- 2nd-level pages like content/en/docs/01/_index.md -->
                     <!-- but also pages like content/en/docs/concurrency.md -->
                     <!-- These pages are the 2nd-level in the toc -->
-                    {{- if site.Params.automaticSectionNumbers -}}
-                        {{- $sectionnumbers := partialCached "sectionnumber.html" . .File.Path -}}
-                        <h2 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-size: 2em; font-weight: bold;">{{ $sectionnumbers.Get .File.Path }} {{ .Title }}</h2>
-                    {{- else -}}
-                        <h2 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-size: 2em; font-weight: bold;">{{ .Title }}</h2>
-                    {{- end -}}
+                    <h2 class="pdf-break-before" id="{{ substr .RelPermalink 1 -1 }}" style="font-size: 2em; font-weight: bold;">{{ partial "sectionnumber" . }}{{ .Title }}</h2>
                     <!-- dirty hack to have a nice table of contents -->
                     <!-- h-tags are simulated by p-tags in order to not appear in the toc -->
                     <!-- and the hierarchy of the headers is decremented by one, i.e. h3 is now h4 -->
@@ -71,12 +61,7 @@
                         {{ if and (in .Site.Params.enabledModule $onlyWhen) (not (in .Site.Params.enabledModule .Params.onlyWhenNot)) }}
                             <!-- 3rd-level pages like content/en/docs/05/helm.md -->
                             <!-- These pages do not appear in the toc -->
-                            {{- if site.Params.automaticSectionNumbers -}}
-                                {{- $sectionnumbers := partialCached "sectionnumber.html" . .File.Path -}}
-                                <p id="{{ substr .RelPermalink 1 -1 }}" style="display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0; font-weight: bold;">{{ $sectionnumbers.Get .File.Path }} {{ .Title }}</p>
-                            {{- else -}}
-                                <p id="{{ substr .RelPermalink 1 -1 }}" style="display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0; font-weight: bold;">{{ .Title }}</p>
-                            {{- end -}}
+                            <p id="{{ substr .RelPermalink 1 -1 }}" style="display: block; font-size: 2em; margin-top: 1em; margin-bottom: 0.6em;margin-left: 0; margin-right: 0; font-weight: bold;">{{ partial "sectionnumber" . }}{{ .Title }}</p>
                             <!-- dirty hack to have a nice table of contents -->
                             <!-- h-tags are simulated by p-tags in order to not appear in the toc -->
                             <!-- and the hierarchy of the headers is decremented by two, i.e. h3 is now h5 -->
