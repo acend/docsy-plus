@@ -1,5 +1,4 @@
 {{/* Copied and adapted from themes/docsy/layouts/partials/section-index.html */}}
-{{- $sectionnumbers := partialCached "sectionnumber.html" . .File.Path -}}
 <div class="section-index">
     {{ $parent := .Page -}}
     {{ $pages := (where .Site.Pages "Section" .Section).ByWeight -}}
@@ -31,10 +30,7 @@
             {{ range $pages -}}
                 {{ $manualLink := cond (isset .Params "manuallink") .Params.manualLink ( cond (isset .Params "manuallinkrelref") (relref . .Params.manualLinkRelref) .RelPermalink) }}
                 {{- $title := .Title -}}
-                {{- if site.Params.automaticSectionNumbers -}}
-                    {{- $title = printf "%s %s" ($sectionnumbers.Get .File.Path) .Title -}}
-                {{- end -}}
-                <li><a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{- $title -}}</a></li>
+                <li><a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{ partial "sectionnumber" . }}{{- $title -}}</a></li>
             {{ end -}}
         </ul>
     {{ else -}}
@@ -45,10 +41,7 @@
             <div class="entry">
                 <h5>
                     {{- $title := .Title -}}
-                    {{- if site.Params.automaticSectionNumbers -}}
-                        {{- $title = printf "%s %s" ($sectionnumbers.Get .File.Path) .Title -}}
-                    {{- end -}}
-                    <a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{- $title -}}</a>
+                    <a href="{{ $manualLink }}"{{ with .Params.manualLinkTitle }} title="{{ . }}"{{ end }}{{ with .Params.manualLinkTarget }} target="{{ . }}"{{ if eq . "_blank" }} rel="noopener"{{ end }}{{ end }}>{{ partial "sectionnumber" . }}{{- $title -}}</a>
                 </h5>
                 <p>{{ .Description | markdownify -}}</p>
             </div>

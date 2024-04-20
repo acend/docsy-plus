@@ -1,11 +1,6 @@
 {{ define "main" }}
 <div class="td-content">
-    {{- if site.Params.automaticSectionNumbers -}}
-    {{- $sectionnumbers := partialCached "sectionnumber.html" . .File.Path -}}
-    <h1>{{ $sectionnumbers.Get .File.Path }} {{ .Title }}</h1>
-    {{- else -}}
-	<h1>{{ .Title }}</h1>
-    {{- end -}}
+    <h1>{{ partial "sectionnumber" . }}{{ .Title }}</h1>
   {{ with .Params.description }}<div class="lead">{{ . | markdownify }}</div>{{ end }}
 	<header class="article-meta">
 		{{ partial "taxonomy_terms_article_wrapper.html" . -}}
