@@ -14,7 +14,7 @@
 {{ if $jsLibs }}
     {{ $jsSite := $jsLibs | resources.Concat "js/site.js" }}
 
-    {{ if not .Site.IsServer }}
+    {{ if not hugo.IsServer }}
       {{ $jsSite = $jsSite | minify }}
     {{ end }}
     {{ $jsSite = $jsSite | fingerprint }}
