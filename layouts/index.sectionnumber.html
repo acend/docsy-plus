@@ -1,0 +1,16 @@
+{{- with site.GetPage "/docs" -}}
+      {{- partial "partials/sectionnumber-recursive" . -}}
+{{- end -}}
+
+{{ define "partials/sectionnumber-recursive" -}}
+  {{ $sectionnumber := "" }}
+  {{ with .Store.Get "sectionnumber" }}
+    {{ $sectionnumber = . }}
+  {{ end }}
+  {{ $count := 0 }}
+  {{ range .Pages }}
+    {{ $count = add $count 1 }}
+    {{ .Store.Set "sectionnumber" (fmt.Printf "%s%d." $sectionnumber $count) }}
+    {{ partial "partials/sectionnumber-recursive" . }}
+  {{ end }}
+{{- end }}

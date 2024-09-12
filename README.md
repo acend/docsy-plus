@@ -172,10 +172,11 @@ When using the Mode Switcher and including a nested Read and Highlight shortcode
 
 ## Automatic Section Numbers
 
-This feature can be enabled by adding the following configuration in the `params` section in your `config.toml`
+This feature can be enabled by adding the following configuration in your `hugo.toml`
 
 ```yaml
-automaticSectionNumbers = true
+[outputs]
+  home = ['html', 'sectionnumber', 'rss']
 ```
 
 All Sections under docs will then have the section number prefixed to the title.
