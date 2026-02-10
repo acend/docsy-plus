@@ -26,7 +26,7 @@
         {{ if (not (and (eq $s $p.Site.Home) (eq .Params.toc_root true))) -}}
           {{ $count = add $count 1 }}
           {{ $newSectionNr := printf "%s%d." $sectionNr $count }}
-          {{ $d = partialCached "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) .File.Path }}
+          {{ $d = partial "sectionnumber-nested" (dict "page" $p "section" . "sectionNr" $newSectionNr "data" $d) }}
         {{- end }}
       {{- end }}
     {{- end }}
